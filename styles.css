@@ -41,11 +41,16 @@ header h1 {
 }
 
 /* Navigation styles */
+a {
+    text-decoration: none !important;
+    color: inherit; 
+}
 .nav-links {
     list-style: none; 
     padding: 0;       
     margin: 0; 
     display: list-item;  
+    text-decoration: none;
 }
 
 .nav-links li a {
@@ -63,21 +68,23 @@ header h1 {
 .nav-links a:hover {
     color: rgb(255, 255, 255);
     font-weight: bold;
+    text-decoration: none;
 }
 
 .nav-links li a.active {
     color: rgb(255, 255, 255);
     font-weight: bolder;
+    text-decoration: none;
 }
 
 /* Icon styling */
 .fa-solid, .fa-brands {
     color: #ffffff;
-    display: block;
-    margin-right: 15px;
-    padding: 8px 16px;
+    display: inline-block;
+    line-height: 24px;
     border-radius: 0px;
-    text-align: center;
+    text-align: left;
+    text-decoration: none;
 }
 
 /* Profile picture */
@@ -97,4 +104,32 @@ p {
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     font-weight: bold;
     font-size: smaller;
+}
+form {
+    max-width: 500px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color:rgba(205, 194, 194, 0.1);
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-weight: bold;
+    color: #ffffff;
+}
+input[type="text"],
+input[type="info"],
+input[type="submit"],
+input[type="email"] {
+    width: 90%; 
+    padding: 10px;
+    margin: 10px auto; 
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    display: block; 
+    box-sizing: border-box; 
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-weight:lighter;
 }
