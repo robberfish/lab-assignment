@@ -59,35 +59,35 @@
                 window.location.href = 'cart.html';
             }
             function loadCart() {
-            let cart = JSON.parse(localStorage.getItem("cart")) ||[];
-            let cartList = document.getElementById("cart-items");
-            cartList.innerHTML = "";
-            if (cart.length === 0) {
-                let emptyMessage = document.createElement("li");
-                emptyMessage.textContent = "Your cart is empty";
-                cartList.appendChild(emptyMessage);
-            } else {
-                cart.forEach((item, index) => {
-                    let listItem = document.createElement("li");
-                    let itemContainer = document.createElement("div");
-                    itemContainer.style.display = "flex";
-                    itemContainer.style.justifyContent = "space-between";
-                    itemContainer.style.alignItems = "center";
-                    let itemText = document.createElement("span");
-                    itemText.textContent = item; //This should display the full text from data-text on the modals
-                    let removeButton = document.createElement("button");
-                    removeButton.textContent = "Remove";
-                    removeButton.onclick = function() {
-                        cart.splice(index, 1);
-                        localStorage.setItem("cart", JSON.stringify(cart));
-                        loadCart(); 
-                    };
-                    itemContainer.appendChild(itemText);
-                    itemContainer.appendChild(removeButton);
-                    listItem.appendChild(itemContainer);
-                    cartList.appendChild(listItem);
-                });
-            }
+                let cart = JSON.parse(localStorage.getItem("cart")) ||[];
+                let cartList = document.getElementById("cart-items");
+                cartList.innerHTML = "";
+                if (cart.length === 0) {
+                    let emptyMessage = document.createElement("li");
+                    emptyMessage.textContent = "Your cart is empty";
+                    cartList.appendChild(emptyMessage);
+                } else {
+                    cart.forEach((item, index) => {
+                        let listItem = document.createElement("li");
+                        let itemContainer = document.createElement("div");
+                        itemContainer.style.display = "flex";
+                        itemContainer.style.justifyContent = "space-between";
+                        itemContainer.style.alignItems = "center";
+                        let itemText = document.createElement("span");
+                        itemText.textContent = item; //This should display the full text from data-text on the modals
+                        let removeButton = document.createElement("button");
+                        removeButton.textContent = "Remove";
+                        removeButton.onclick = function() {
+                            cart.splice(index, 1);
+                            localStorage.setItem("cart", JSON.stringify(cart));
+                            loadCart(); 
+                        };
+                        itemContainer.appendChild(itemText);
+                        itemContainer.appendChild(removeButton);
+                        listItem.appendChild(itemContainer);
+                        cartList.appendChild(listItem);
+                    });
+                }
             }
         document.addEventListener("DOMContentLoaded", loadCart);
     </script>
