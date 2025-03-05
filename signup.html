@@ -24,7 +24,7 @@
                 <li><a href="bio.html">BIO</a></li>
                 <li><a href="contactus.html">CONTACT</a></li>
                 <li><a href="cart.html">CART</a></li>
-                <li><a href="login.html" class="active">LOGIN</a></li>
+                <li><a href="login.html">LOGIN</a></li>
                 <a href="https://facebook.com" target="_blank"> 
                     <i class="fa-brands fa-facebook-f" style="color: #ffffff; align-content: center;margin-right: 15px;padding: 8px 16px; border-radius: 0px;"></i>
                 </a><br>
@@ -38,14 +38,19 @@
         </nav>
     </header>
 
-    <h1>Login</h1>    
+    <h1>Sign Up</h1>    
     <form>
+        <input type="text" name="fname" placeholder="First name">
+        <input type="text" name="lname" placeholder="Last name"><br>
+        <input type="email" name="email" placeholder="Email">
+        <input type="text" name="phone" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" placeholder="Phone number">
+        <p>Birthday:</p><input type="date" name="bday" placeholder="Birthday"><br>
         <input type="text" name="username" placeholder="Username">
         <input type="password" name="password" placeholder="Password">
         <input type="submit">
     </form>
     <br>
-    <p>Don't have an account? Create one <a href="signup.html"><u>here</u></a>!</p>
+    <p>Already have an account? Login one <a href="login.html"><u>here</u></a>!</p>
 
 </body>
 

@@ -141,7 +141,10 @@ label {
 input[type="text"],
 input[type="info"],
 input[type="submit"],
-input[type="email"] {
+input[type="email"], 
+input[type="month"],
+input[type="password"],
+input[type="date"] {
     width: 100%; 
     padding: 10px;
     margin: 10px auto; 
