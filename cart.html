@@ -1,6 +1,9 @@
 <!DOCTYPE html>
+
 <html>
 <head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
     <title>
@@ -14,6 +17,7 @@
         font-weight: bolder;
         font-size: 40px;
     }
+    
 </style>
 </head>
 
@@ -44,7 +48,49 @@
         </nav>
     </header>
     
-    <div class="card" style="background-color: rgba(0, 0, 0, 0.4);">
+    <div class="card" style="background-color: rgba(0, 0, 0, 0.4);text-align: center;">
+        <div class="card-header">
+            <h2>Cart Details</h2>
+            <ul id="cart-items"></ul>
+        </div>
+        <script>
+            function addToCart(itemName) {
+                let cart = JSON.parse(localStorage.getItem("cart")) || []; 
+                window.location.href = 'cart.html';
+            }
+            function loadCart() {
+            let cart = JSON.parse(localStorage.getItem("cart")) ||[];
+            let cartList = document.getElementById("cart-items");
+            cartList.innerHTML = "";
+            if (cart.length === 0) {
+                let emptyMessage = document.createElement("li");
+                emptyMessage.textContent = "Your cart is empty";
+                cartList.appendChild(emptyMessage);
+            } else {
+                cart.forEach((item, index) => {
+                    let listItem = document.createElement("li");
+                    let itemContainer = document.createElement("div");
+                    itemContainer.style.display = "flex";
+                    itemContainer.style.justifyContent = "space-between";
+                    itemContainer.style.alignItems = "center";
+                    let itemText = document.createElement("span");
+                    itemText.textContent = item; //This should display the full text from data-text on the modals
+                    let removeButton = document.createElement("button");
+                    removeButton.textContent = "Remove";
+                    removeButton.onclick = function() {
+                        cart.splice(index, 1);
+                        localStorage.setItem("cart", JSON.stringify(cart));
+                        loadCart(); 
+                    };
+                    itemContainer.appendChild(itemText);
+                    itemContainer.appendChild(removeButton);
+                    listItem.appendChild(itemContainer);
+                    cartList.appendChild(listItem);
+                });
+            }
+            }
+        document.addEventListener("DOMContentLoaded", loadCart);
+    </script>
         <div class="card-header">
             <h2>Check-out</h2>
         </div>

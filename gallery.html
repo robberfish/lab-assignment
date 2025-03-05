@@ -67,31 +67,31 @@
     <div class="container mt-5 pt-5"> <!-- mt and pt are margin and padding tops for container -->
         <div class="row row-cols-1 row-cols-md-3 g-3"> <!-- responsive grid so if screen changes, images will move -->
             <div class="col">
-                <img src="hiker.webp" class="img-fluid" alt="Uidaho image" data-bs-toggle="modal" data-bs-target="#open-modal"
+                <img src="hiker.webp" class="img-fluid" alt="Uidaho image" 
                 data-bs-toggle="modal" data-bs-target="#open-modal" data-text="Dust Rose Jacket - 180$">
             </div>
             <div class="col">
-                <img src="pants.webp" class="img-fluid" alt="UIdaho image" data-bs-toggle="modal" data-bs-target="#open-modal"
+                <img src="pants.webp" class="img-fluid" alt="UIdaho image" data-bs-target="#open-modal"
                 data-bs-toggle="modal" data-bs-target="#open-modal" data-text="Tuffwear Hiking Pants - 160$">
             </div>
             <div class="col">
-                <img src="leggings.webp" class="img-fluid" alt="Uidaho image" data-bs-toggle="modal" data-bs-target="#open-modal"
+                <img src="leggings.webp" class="img-fluid" alt="Uidaho image" 
                 data-bs-toggle="modal" data-bs-target="#open-modal" data-text="Forest Leggings - 100$">
             </div>
             <div class="col">
-                <img src="jeans.webp" class="img-fluid" alt="Uidaho image" data-bs-toggle="modal" data-bs-target="#open-modal"
+                <img src="jeans.webp" class="img-fluid" alt="Uidaho image"
                 data-bs-toggle="modal" data-bs-target="#open-modal" data-text="RipStop Jeans - 120$">
             </div>
             <div class="col">
-                <img src="shorts.webp" class="img-fluid" alt="UIdaho image" data-bs-toggle="modal" data-bs-target="#open-modal"
+                <img src="shorts.webp" class="img-fluid" alt="UIdaho image"
                 data-bs-toggle="modal" data-bs-target="#open-modal" data-text="Waverly All-Day Shorts - 45$">
             </div>
             <div class="col">
-                <img src="romper.webp" class="img-fluid" alt="Uidaho image" data-bs-toggle="modal" data-bs-target="#open-modal"
+                <img src="romper.webp" class="img-fluid" alt="Uidaho image" 
                 data-bs-toggle="modal" data-bs-target="#open-modal" data-text="Mocha Morning Romper - 65$">
             </div>
             <div class="col">
-                <img src="vest.webp" class="img-fluid" alt="Uidaho image" data-bs-toggle="modal" data-bs-target="#open-modal"
+                <img src="vest.webp" class="img-fluid" alt="Uidaho image"
                 data-bs-toggle="modal" data-bs-target="#open-modal" data-text="Mustard Moor Windproof Vest - 70$">
             </div>
         </div>
@@ -106,9 +106,9 @@
                 </div>
                 <div class="modal-body">
                     <img src="" class="img-fluid" id="m_image">
-                    <p id="m_text" class="mt-2 text-center"style="color:black;font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;"></p><br>
+                    <p id="m_text" class="mt-2 text-center"style="font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;"></p><br>
                     <p id="Cart_text" class="mt-2 position-absolute"style="right: 56px; bottom: 0px; font-size: 10px;color:black ; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">Add to Cart</p>
-                    <button type="button" class="fa-solid fa-cart-plus position-absolute" onclick="window.location.href='cart.html'" 
+                    <button type="button" class="fa-solid fa-cart-plus position-absolute" onclick="addToCart(document.getElementById('m_text').innerText);window.location.href='cart.html'" 
                     style="right: 15px; bottom: 10px; font-size: 24px; background: none; color:black;border: none; cursor: pointer;">
                 </div>
             </div>
@@ -118,17 +118,64 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
     <script>
-        const images =document.querySelectorAll('.container img');
+        //Select all images that trigger the modal
+        const images = document.querySelectorAll('.container img[data-bs-toggle="modal"]');
+        
         images.forEach(image => {
-            image.addEventListener('click',() => { //this 'listens' for a click on an image, and then gets the relevant one
+            image.addEventListener('click', () => {
+                //Get the modal elements
                 const m_image = document.getElementById('m_image');
-                m_image.src =image.src; //make the correct image appear in the modal
-                m_text.innerText = image.getAttribute('data-text'); 
+                const m_text = document.getElementById('m_text');
+        
+                // Set the image source
+                m_image.src = image.src;
+        
+                const itemText = image.getAttribute('data-text');
+                m_text.textContent = itemText;
+        
+            });
+        });
+        
+        function addToCart(itemName) {
+            //initialize or instead set cart from user history
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+            
+            if (!cart.includes(itemName)) {
+                cart.push(itemName);
+                localStorage.setItem("cart", JSON.stringify(cart));
             }
-        );
+            window.location.href = 'cart.html';
         }
-    );
-    </script>
+        
+        function loadCart() {
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+            let cartList = document.getElementById("cart-items");
+            cartList.innerHTML = "";
+            if (cart.length === 0) {
+                let emptyMessage = document.createElement("li");
+                emptyMessage.textContent = "Cart is empty";
+                cartList.appendChild(emptyMessage);
+            } else {
+                cart.forEach((item, index) => {
+                    let listItem = document.createElement("li");
+                    let itemText = document.createElement("span");
+                    itemText.textContent = item;
+                    //remove buttons
+                    let removeButton = document.createElement("button");
+                    removeButton.textContent = "Remove";
+                    removeButton.onclick = function() {
+                        cart.splice(index, 1);
+                        localStorage.setItem("cart", JSON.stringify(cart));
+                        loadCart(); 
+                    };
+                    listItem.appendChild(itemText);
+                    listItem.appendChild(removeButton);
+                    cartList.appendChild(listItem);
+                });
+            }
+        }
+        document.addEventListener("DOMContentLoaded", loadCart);
+</script>
 </body>
 </html>
 
