@@ -1,7 +1,5 @@
 <?php
-// Include your database connection file
-include('db.php');  // Ensure this file contains your DB connection
-
+include('db.php'); 
 // Handle delete user action
 if(isset($_GET['delete_id'])){
     $delete_id = $_GET['delete_id'];
@@ -13,12 +11,11 @@ if(isset($_GET['delete_id'])){
     }
 }
 
-// Fetch users from the database
-$sql = "SELECT * FROM users";
+$sql = "SELECT * FROM users"; //get all from my table of users
 $result = mysqli_query($conn, $sql);
 ?>
 
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -27,24 +24,22 @@ $result = mysqli_query($conn, $sql);
     <style>
         table {
             width: 100%;
-            border-collapse: collapse;
         }
         table, th, td {
-            border: 1px solid black;
+            border: 1px black;
         }
         th, td {
             padding: 8px;
             text-align: left;
         }
         .delete-btn {
-            color: red;
-            cursor: pointer;
+            color: blue;
         }
     </style>
 </head>
 <body>
 
-    <h1>Registered Users</h1>
+    <h1>Users</h1>
     
     <table>
         <thead>
@@ -52,13 +47,12 @@ $result = mysqli_query($conn, $sql);
                 <th>ID</th>
                 <th>Username</th>
                 <th>Email</th>
-                <th>Created At</th>
+                <th>Created-At</th>
                 <th>Action</th>
             </tr>
         </thead>
         <tbody>
             <?php
-            // Loop through the users and display them
             if (mysqli_num_rows($result) > 0) {
                 while($row = mysqli_fetch_assoc($result)) {
                     echo "<tr>";
@@ -68,7 +62,7 @@ $result = mysqli_query($conn, $sql);
                     echo "<td>" . $row['create_datetime'] . "</td>";
                     echo "<td><a href='?delete_id=" . $row['id'] . "' class='delete-btn'>Delete</a></td>";
                     echo "</tr>";
-                }
+                }//display my users
             } else {
                 echo "<tr><td colspan='5'>No users found</td></tr>";
             }
@@ -78,8 +72,6 @@ $result = mysqli_query($conn, $sql);
 
 </body>
 </html>
-
 <?php
-// Close the database connection
 mysqli_close($conn);
 ?>
