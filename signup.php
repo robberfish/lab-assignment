@@ -27,7 +27,7 @@
         } else {
             echo "<div class='form'>
                   <h3>Required fields are missing or there was an error.</h3><br/>
-                  <p class='link'>Click to <a href='registration.php'>register</a> again.</p>
+                  <p class='link'>Click to <a href='signup.php'>register</a> again.</p>
                   </div>";
         }
     }
@@ -80,7 +80,7 @@
         <input type="submit" value="Register">
     </form>
     <br>
-    <p>Already have an account? Login <a href="login.html"><u>here</u></a>!</p>
+    <p>Already have an account? Login <a href="login.php"><u>here</u></a>!</p>
 
 </body>
 </html>
