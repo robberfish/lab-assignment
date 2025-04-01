@@ -45,7 +45,7 @@
     <header>
         <i class="fa-solid fa-bug" style="color: #ffffff; font-size: 80px; display: block; align-content: center;margin-right: 15px;padding: 8px 16px; border-radius: 0px;"></i>
         <h1 id='p1' style="color: rgb(255, 255, 255); text-align: left; font-weight: bolder; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; font-size:32px;">
-            B E E <br> B U Y <br>
+            BAR <br> TER <br> BEE <br>
         </h1>
         <nav>
             <ul class="nav-links">
@@ -54,7 +54,7 @@
                 <li><a href="bio.html">BIO</a></li>
                 <li><a href="contactus.html">CONTACT</a></li>
                 <li><a href="cart.html">CART</a></li>
-                <li><a href="login.html">LOGIN</a></li>
+                <li><a href="login.php">LOGIN</a></li>
                 <a href="https://facebook.com" target="_blank"> 
                     <i class="fa-brands fa-facebook-f" style="color: #ffffff; align-content: center;margin-right: 15px;padding: 8px 16px; border-radius: 0px;"></i>
                 </a><br>
