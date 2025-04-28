@@ -1,7 +1,6 @@
-<?php
-    //$con = mysqli_connect("192.168.10.20","robberfish","Zoinksjeepers5@","class proj"); //was using LAMP Sandbox to act as my server
-    $con = mysqli_connect("localhost","root","","lab-db"); // connection for my server
+<?php //basically following tutorial
+    $con = mysqli_connect("localhost","root","","pretend_photo_website"); 
     if (mysqli_connect_errno()){
-        echo "Failed to connect to MySQL: " . mysqli_connect_error();
+        echo "Failed to connect to MySQL: " . mysqli_connect_error();//error handling
     }
 ?>
