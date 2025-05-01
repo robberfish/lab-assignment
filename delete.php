@@ -1,6 +1,5 @@
 <?php
 include('db.php'); 
-// Handle delete user action
 if(isset($_GET['delete_id'])){
     $delete_id = $_GET['delete_id'];
     $delete_query = "DELETE FROM users WHERE id = $delete_id";
