@@ -8,8 +8,7 @@ if(isset($_GET['delete_id'])){
     } else {
         echo "Error: " . mysqli_error($conn);
     }
-}
-
+}//debugging
 $sql = "SELECT * FROM users"; //get all from my table of users
 $result = mysqli_query($conn, $sql);
 ?>
@@ -21,17 +20,17 @@ $result = mysqli_query($conn, $sql);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Management</title>
     <style>
-        table {
+        table{
             width: 100%;
         }
-        table, th, td {
+        table, th, td{
             border: 1px black;
         }
-        th, td {
+        th, td{
             padding: 8px;
             text-align: left;
         }
-        .delete-btn {
+        .delete-btn{
             color: blue;
         }
     </style>

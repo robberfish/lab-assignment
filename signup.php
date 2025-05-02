@@ -1,30 +1,29 @@
 <?php
 
 require('db.php');
-if (!$con) {
+if (!$con){
     die("Database connection failed: " . mysqli_connect_error());
 } //error debugging
 
-if (isset($_POST['username'])) {
+if (isset($_POST['username'])){
     $username = mysqli_real_escape_string($con, stripslashes($_POST['username']));
     $email    = mysqli_real_escape_string($con, stripslashes($_POST['email']));
     $password = mysqli_real_escape_string($con, stripslashes($_POST['password']));
     $phone    = mysqli_real_escape_string($con, stripslashes($_POST['phone']));
     $bday     = mysqli_real_escape_string($con, stripslashes($_POST['bday']));
     $create_datetime = date("Y-m-d H:i:s");
-   
     $is_admin = 0; //default for new users. To make an admin, we need to go in and manually edit the database to make you an admin
 
     $query = "INSERT INTO users (username, password, email, phone, birthday, create_datetime, is_admin, buddy_id)
           VALUES ('$username', '" . password_hash($password, PASSWORD_DEFAULT) . "', '$email', '$phone', '$bday', '$create_datetime', '$is_admin')";
     $result = mysqli_query($con, $query);
 
-    if ($result) {
+    if ($result){
         $success = "User added successfully. Start shopping!";
     } else {
-        if (mysqli_errno($con) == 1062) {
+        if (mysqli_errno($con) == 1062){
             $error = "Username already exists. Please choose another."; //username should be unique
-    } else {
+    } else{
         $error = "This did not work. Try again";
     }}
 }
@@ -35,9 +34,17 @@ if (isset($_POST['username'])) {
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+   
     <title>Pretend Photo Website</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="assets/css/fresh-bootstrap-table.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" rel="stylesheet">
+  <link href="http://fonts.googleapis.com/css?family=Roboto:400,700,300" rel="stylesheet" type="text/css">
     <style>select {
     width: 100%;
     padding: 12px 14px;
