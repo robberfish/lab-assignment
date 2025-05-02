@@ -1,54 +1,50 @@
 <?php
+session_start();
 require('db.php');
-require('auth_session.php');
+
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
     exit();
 }
 
-$user_id = $_SESSION['user_id']; // Get the logged-in user's ID
+$user_id = $_SESSION['user_id'];
+$is_admin = $_SESSION['is_admin'] ?? false;
 
-// Define the SQL query to fetch the user's posted items
+//Define the SQL query to fetch the user's posted items based off that id
 $query = "SELECT * FROM items WHERE user_id = ?";
 $stmt = $con->prepare($query);
 $stmt->bind_param("i", $user_id); 
 $stmt->execute();
 
-// Get the result set
 $items_result = $stmt->get_result();
 
-// Close the statement
 $stmt->close();
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if ($_SERVER["REQUEST_METHOD"] == "POST"){
     $name = mysqli_real_escape_string($con, stripslashes($_POST['name']));
     $price = mysqli_real_escape_string($con, stripslashes($_POST['price']));
     $user_id=$user_id = $_SESSION['user_id'];
-    // Image upload handling
-    $target_dir = "uploads/"; 
+    $target_dir = "uploads/"; //use uploads file
     $image_file = $_FILES['image']['name'];
     $image_tmp = $_FILES['image']['tmp_name'];
-    $image_ext = strtolower(pathinfo($image_file, PATHINFO_EXTENSION));
+    $image_ext = strtolower(pathinfo($image_file,PATHINFO_EXTENSION));
     $allowed_exts = ['jpg', 'jpeg', 'png'];
-
-    if (in_array($image_ext, $allowed_exts)) {
+    //insert into db or throw errors
+    if (in_array($image_ext, $allowed_exts)){
         $new_filename = uniqid("img_") . '.' . $image_ext;
         $target_file = $target_dir . $new_filename;
-
         if (move_uploaded_file($image_tmp, $target_file)) {
             $image_url = mysqli_real_escape_string($con, $target_file);
-
             $query = "INSERT INTO `items` (name, image_url, price, user_id) 
                       VALUES ('$name', '$image_url', '$price', '$user_id')";
-            $result = mysqli_query($con, $query);
-        } else {
-            echo "Error uploading file.";
+            $result = mysqli_query($con,$query);
+        } else{
+            echo "Error- couldn't upload yourfile.";
         }
-    } else {
-        echo "Invalid file type. Only JPG, JPEG, and PNG are allowed.";
+    } else{
+        echo "Invalid file type.Only JPG, JPEG, and PNG are allowed. Try again!";
     }
 }
-
 
 ?>
 
@@ -56,8 +52,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <html>
 <head>
 <title>Pretend Photo Website - Login</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="assets/css/fresh-bootstrap-table.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" rel="stylesheet">
+  <link href="http://fonts.googleapis.com/css?family=Roboto:400,700,300" rel="stylesheet" type="text/css">
     <header>
 <i class="fa-solid fa-bug" style="color: #ffffff; font-size: 72px; display: block; align-content: center;margin-right: 15px;padding: 8px 16px; border-radius: 0px;"></i>
         <h1 id='p1' style="color: rgb(255, 255, 255); text-align: left; font-weight: bolder; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; font-size:32px;">
@@ -97,7 +100,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     background-size: cover;
     background-attachment: fixed;
     margin: 0;}
-        h1 { color: white; font-size: 24px; }
+        h1{ color: white; font-size: 24px; }
         a:hover {
             background-color: rgba(40, 90, 121, 0.21);
             font-weight: bolder;
@@ -122,6 +125,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </html>
 
 
+<!--show current postings if user has them- all items belonging to the user-->
 <?php if ($items_result && mysqli_num_rows($items_result) > 0): ?>
     <div class="postings-section">
         <h1>Your Current Postings</h1>
@@ -134,7 +138,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <button type="submit">Delete</button>
                     </form>
                 </li>
-            <?php endwhile; ?>
+            <?php endwhile;?>
         </ul>
     </div>
 <?php else: ?>

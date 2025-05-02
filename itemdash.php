@@ -1,18 +1,18 @@
 <?php
 require('db.php'); //connect to db
-if (isset($_GET['delete_id'])) {
+if (isset($_GET['delete_id'])){
     $delete_id = intval($_GET['delete_id']);
     $delete_query = "DELETE FROM `items` WHERE id = '$delete_id'";
 
-    if (mysqli_query($con, $delete_query)) {
+    if (mysqli_query($con, $delete_query)){
         header("Location: itemdash.php"); //redirect to refresh the page
         exit();
-    } else {
+    } else{
         echo "Error". mysqli_error($con);
     }
 }
 
-//get all users' info from the database
+//get all the item information
 $query = "SELECT id, name, image_url, price FROM `items`";
 $result = mysqli_query($con, $query);
 ?>
@@ -20,6 +20,15 @@ $result = mysqli_query($con, $query);
 
 <!DOCTYPE html>
 <html>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="assets/css/fresh-bootstrap-table.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" rel="stylesheet">
+  <link href="http://fonts.googleapis.com/css?family=Roboto:400,700,300" rel="stylesheet" type="text/css">
 <head>
 <header>
         <i class="fa-solid fa-bug" style="color: #ffffff; font-size: 72px; display: block; align-content: center;margin-right: 15px;padding: 8px 16px; border-radius: 0px;"></i>
@@ -67,20 +76,17 @@ $result = mysqli_query($con, $query);
             color:black;
             font-size: 24px;
         }
-        th, td {
-            padding: 10px;
-            border: 1px solid #ddd;
-            text-align: left;
-            font-weight:bold;
-            background-color:rgba(241, 241, 241, 0.82);
-            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        form{
+            width: 80%;
+            margin: 16px auto;
+            border-collapse: collapse;
         }
+
         th {
             background-color:rgba(242, 242, 242, 0.72);
             font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
         }
-
-        tr:hover {
+        tr:hover{
             background-color:rgba(241, 241, 241, 0.76);
         }
         a{
@@ -94,8 +100,6 @@ $result = mysqli_query($con, $query);
             text-align: center; 
             margin-top: 20px;   
         }
-
-
     </style>
 </head>
 <body>
@@ -109,6 +113,7 @@ $result = mysqli_query($con, $query);
                     <th>Name </th>
                     <th>URL</th>
                     <th>Price</th>
+                    <th>Remove?</th>
                 </tr>
             </thead>
             <tbody>
@@ -119,10 +124,10 @@ $result = mysqli_query($con, $query);
                         <td><?php echo htmlspecialchars($row['image_url']); ?></td>
                         <td><?php echo htmlspecialchars($row['price']);?></td>
                         <td>
-                            <a href="itemdash.php?delete_id=<?php echo $row['id']; ?>">
-                               Delete
-                            </a>
-                        </td>
+                                <a href="dashboard.php?delete_id=<?php echo $row['id']; ?>">
+                                Delete 
+                                </a>
+                            </td>
                     </tr>
                 <?php endwhile; ?>
             </tbody>
@@ -136,3 +141,28 @@ $result = mysqli_query($con, $query);
     </div>
 </body>
 </html>
+<!-- Javascript, this is a template i was trying to implement but I couldn't get every part of it to work-->
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table/dist/bootstrap-table.min.js"></script>
+<script type="text/javascript">
+var $table = $('#fresh-table')
+$(function () {
+$table.bootstrapTable({
+    classes: 'table table-hover table-striped',
+    search: true,
+    pagination: true,
+    striped: true,
+    pageSize: 8,
+    pageList: [8, 10, 25, 50, 100],
+
+    formatShowingRows: function (pageFrom, pageTo, totalRows){
+    return ''
+    },
+    formatRecordsPerPage: function (pageNumber){
+    return pageNumber + 'rows visible'
+    }
+})
+})
+</script>
+

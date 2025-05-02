@@ -4,7 +4,7 @@ body {
     background-color: gray;
     background-blend-mode: multiply;
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size:cover;
     background-attachment: fixed;
     margin: 0;
 }
@@ -123,8 +123,8 @@ form {
 .input-group {
     display: flex;
     flex-direction: column;
-    flex: 1; /* Allows fields to share space equally */
-    min-width: 45%; /* Ensures fields are at least 45% width */
+    flex: 1; 
+    min-width: 45%;
 }
 .full-width {
     display: flex;
@@ -238,7 +238,7 @@ button:hover {
     font-size: 16px;
 }
 
-#cart-items li button {
+#cart-items li button{
     background-color: #ffffffbc;
     color: rgb(0, 0, 0);
     border: none;
