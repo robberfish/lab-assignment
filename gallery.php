@@ -139,7 +139,7 @@ $items = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
 
 
-        function addToCart() { //add to cart function, that tracks what items you are collecting.
+    function addToCart() { //add to cart function, that tracks what items you are collecting.
     let name = document.getElementById('m_text').textContent;
     let priceText = document.getElementById('m_price').textContent;
 

@@ -54,7 +54,6 @@ if ($_SERVER["REQUEST_METHOD"]== "POST"){
   <link href="assets/css/fresh-bootstrap-table.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="styles.css">
-  <!-- Fonts and icons -->
   <link href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" rel="stylesheet">
   <link href="http://fonts.googleapis.com/css?family=Roboto:400,700,300" rel="stylesheet" type="text/css">
 <header>
